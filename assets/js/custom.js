@@ -1,4 +1,4 @@
-/* LW11 form behavior; LW12 skill dashboard behavior is added below later. */
+/* Contact form validation and skill progress dashboard. */
 (function () {
   "use strict";
 
@@ -53,9 +53,6 @@
     return ratings.reduce((sum, rating) => sum + Number(rating), 0) / ratings.length;
   }
 
-  if (typeof module !== "undefined" && module.exports) {
-    module.exports = { formatLithuanianPhone, validationMessage, calculateAverage };
-  }
   if (typeof document === "undefined") return;
 
   const form = document.getElementById("cv-feedback-form");
@@ -240,9 +237,6 @@
     }
   }
 
-  if (typeof module !== "undefined" && module.exports) {
-    Object.assign(module.exports, { initialSkills, levelDetails, calculateSkillProgress, changeSkillStatus, parseSavedStatuses });
-  }
   if (typeof document === "undefined") return;
 
   const dashboard = document.getElementById("skill-progress");
