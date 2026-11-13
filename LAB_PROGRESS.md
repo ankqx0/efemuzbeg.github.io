@@ -1,0 +1,37 @@
+# Laboratory progress
+
+Official sources: `HTML_LW9.pdf`, `HTML_LW10.docx`, `HTML_LW11.pdf` (found on the Desktop), and `HTML_LW12.docx`. The files were read before implementation. Checkpoints are local; GitHub Pages is not updated by these commits.
+
+## LW9_CSS_COMPLETE
+
+Mandatory requirements:
+
+- [x] `assets/css/custom.css` exists and loads after `main.css`.
+- [x] The site uses a new global font stack; h1 through h6 and paragraphs have distinct typography.
+- [x] Buttons have new normal, hover and active styles; links have new color and focus/hover treatment.
+- [x] About, Resume and Portfolio spacing was changed with margins and padding.
+- [x] Content blocks in those sections have borders, rounded corners and shadows.
+- [x] Navigation and back-to-top each have at least three distinct surface, border, shape or shadow changes.
+- [x] Text and surface colors were chosen for readable contrast; responsive spacing rules were added.
+
+Complementary requirements:
+
+- [x] The LW8 ordered and unordered lists use custom counters or pseudo-element markers.
+- [x] The nested list has a separate marker, border and indentation.
+- [x] The Services table has a dark header, alternating body rows, centered content and consistent cell padding.
+
+Verification: CSS braces balanced; the expected selectors, HTML classes and stylesheet load order were checked. HTML IDs are unique, navigation targets resolve, all local asset references exist, and `git diff --check` passed. Visual appearance and responsive behavior still require browser review.
+
+Changed files: `assets/css/custom.css`, `index.html`, `LAB_PROGRESS.md`.
+
+## LW10_DASHBOARD_COMPLETE
+
+Pending implementation and verification.
+
+## LW11_FORM_COMPLETE
+
+Pending implementation and verification.
+
+## LW12_INTERACTIVE_COMPLETE
+
+Pending implementation and verification.

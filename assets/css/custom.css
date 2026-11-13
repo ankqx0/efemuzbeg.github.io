@@ -1,0 +1,209 @@
+/* LW9: visual customization layered over the MyResume template. */
+:root {
+  --default-font: "Aptos", "Segoe UI", Arial, sans-serif;
+  --heading-font: "Trebuchet MS", "Segoe UI", sans-serif;
+  --nav-font: "Aptos", "Segoe UI", Arial, sans-serif;
+  --default-color: #243746;
+  --heading-color: #12344f;
+  --accent-color: #0876a7;
+  --nav-color: #173f5c;
+  --nav-hover-color: #075c86;
+}
+
+body {
+  font-family: var(--default-font);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+  color: var(--heading-color);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+h1 { font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 800; }
+h2 { font-size: clamp(2rem, 3vw, 3rem); font-weight: 750; }
+h3 { font-size: clamp(1.45rem, 2.2vw, 2rem); font-weight: 700; }
+h4 { font-size: 1.25rem; font-weight: 700; }
+h5 { font-size: 1.08rem; font-weight: 650; }
+h6 { font-size: 1rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.06em; }
+
+p {
+  color: #30475a;
+  line-height: 1.75;
+  margin-bottom: 1.1rem;
+}
+
+a {
+  color: #075e88;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+a:hover, a:focus-visible {
+  color: #064a6b;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
+
+button, .contact .php-email-form button[type="submit"] {
+  background: #0876a7;
+  border: 1px solid #075e88;
+  border-radius: 12px;
+  box-shadow: 0 5px 14px rgba(11, 70, 101, 0.16);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.7rem 1.3rem;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+button:hover:not(:disabled), .contact .php-email-form button[type="submit"]:hover:not(:disabled) {
+  background: #075a82;
+  box-shadow: 0 8px 20px rgba(11, 70, 101, 0.24);
+  transform: translateY(-2px);
+}
+
+button:active:not(:disabled), .contact .php-email-form button[type="submit"]:active:not(:disabled) {
+  background: #054566;
+  box-shadow: 0 2px 7px rgba(11, 70, 101, 0.2);
+  transform: translateY(1px);
+}
+
+button:focus-visible, a:focus-visible {
+  outline: 3px solid #65c7e7;
+  outline-offset: 3px;
+}
+
+button:disabled { opacity: 0.58; cursor: not-allowed; }
+
+/* Spacing and content surfaces in the original CV sections. */
+.about, .resume, .portfolio { padding-block: 76px; }
+.about .section-title, .resume .section-title, .portfolio .section-title { margin-bottom: 28px; }
+.about .content {
+  background: #f7fbfe;
+  border: 1px solid #d8e9f2;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(20, 65, 91, 0.08);
+  padding: 28px;
+}
+.about .content p:last-child { margin-bottom: 0; }
+.about img { border-radius: 18px; box-shadow: 0 10px 30px rgba(20, 65, 91, 0.12); }
+
+.resume .resume-title { margin-block: 28px 18px; }
+.resume .resume-item {
+  background: #f9fcfe;
+  border: 1px solid #d8e9f2;
+  border-left: 4px solid var(--accent-color);
+  border-radius: 0 14px 14px 0;
+  box-shadow: 0 6px 20px rgba(20, 65, 91, 0.06);
+  margin: 0 0 18px;
+  padding: 20px 22px;
+}
+.resume .resume-item::before { left: -10px; top: 22px; }
+.resume .resume-item h4 { line-height: 1.35; }
+.resume .resume-item:last-child { padding-bottom: 20px; }
+
+.portfolio .portfolio-filters { margin-bottom: 28px; }
+.portfolio .portfolio-item {
+  background: #fff;
+  border: 1px solid #d8e9f2;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(20, 65, 91, 0.1);
+}
+.portfolio .portfolio-item img { display: block; width: 100%; height: auto; }
+.portfolio .portfolio-item .portfolio-info { border-radius: 12px; }
+
+.services .service-item, .contact .info-item {
+  border: 1px solid #d8e9f2;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(20, 65, 91, 0.08);
+}
+
+/* Additional component 1: navigation surface, shape, border and shadow. */
+.navmenu a, .navmenu a:focus {
+  background: #e9f4fa;
+  border: 1px solid #c3e1ef;
+  border-radius: 15px;
+  box-shadow: 0 3px 9px rgba(18, 73, 105, 0.1);
+}
+.navmenu a:hover, .navmenu .active, .navmenu .active:focus {
+  background: #d8eef8;
+  border-color: #70b6d6;
+  box-shadow: 0 6px 15px rgba(18, 73, 105, 0.16);
+  text-decoration: none;
+}
+
+/* Additional component 2: back-to-top size, border, shape and shadow. */
+.scroll-top {
+  width: 52px;
+  height: 52px;
+  background: #0b668f;
+  border: 2px solid #d5f0fb;
+  border-radius: 15px;
+  box-shadow: 0 8px 22px rgba(15, 67, 97, 0.27);
+}
+.scroll-top:hover { background: #084e70; box-shadow: 0 10px 26px rgba(15, 67, 97, 0.34); }
+
+/* LW8 lists: custom markers and a separate nested-list treatment. */
+.services .tool-list, .services .stage-list, .services .stage-sublist {
+  list-style: none;
+  padding-left: 0;
+}
+.services .tool-list > li, .services .stage-list > li {
+  position: relative;
+  background: #f7fbfe;
+  border: 1px solid #d8e9f2;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px 14px 10px 48px;
+}
+.services .tool-list > li::before {
+  content: "◆";
+  position: absolute;
+  left: 18px;
+  color: #0876a7;
+}
+.services .stage-list { counter-reset: stage; }
+.services .stage-list > li::before {
+  counter-increment: stage;
+  content: counter(stage, decimal-leading-zero);
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  color: #075e88;
+  font-weight: 800;
+}
+.services .stage-sublist {
+  margin: 10px 0 0;
+  padding-left: 12px;
+  border-left: 2px dashed #69b8d8;
+}
+.services .stage-sublist > li { position: relative; padding: 5px 0 5px 24px; color: #31566d; }
+.services .stage-sublist > li::before { content: "○"; position: absolute; left: 2px; color: #0876a7; }
+
+/* LW8 table: header, alternating body rows, consistent centered cells. */
+.services-table { border-color: #c8e0ec; }
+.services-table th, .services-table td {
+  padding: 14px 18px;
+  text-align: center;
+  vertical-align: middle;
+  border-color: #c8e0ec;
+  box-shadow: none;
+}
+.services-table thead th {
+  --bs-table-bg: #153d59;
+  background-color: #153d59;
+  color: #fff;
+  font-weight: 700;
+}
+.services-table tbody tr:nth-child(odd) > * { background-color: #f1f8fc; box-shadow: none; }
+.services-table tbody tr:nth-child(even) > * { background-color: #fff; box-shadow: none; }
+.services-table tbody tr:hover > * { background-color: #dff0f8; }
+
+@media (max-width: 767px) {
+  .about, .resume, .portfolio { padding-block: 54px; }
+  .about .content { padding: 20px; }
+  .services-table th, .services-table td { padding: 12px; }
+}
