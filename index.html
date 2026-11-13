@@ -51,6 +51,7 @@
         <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Resume</span></a></li>
         <li><a href="#portfolio"><i class="bi bi-images navicon"></i><span>Portfolio</span></a></li>
         <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i><span>Interests</span></a></li>
+        <li><a href="#skill-progress"><i class="bi bi-kanban navicon"></i><span>Progress</span></a></li>
         <li><a href="#contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
       </ul>
     </nav>
@@ -455,6 +456,81 @@
       </div>
 
     </section><!-- /Interests Section -->
+
+    <!-- Skill Progress Section -->
+    <section id="skill-progress" class="skill-progress section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Skill Progress Dashboard</h2>
+        <p>Illustrative learning progress in Computer Engineering and Cybersecurity. XP values are not professional certifications.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="progress-overview" aria-label="Learning progress overview">
+          <div class="progress-stat"><span class="stat-label">Earned XP</span><strong id="earned-xp">145</strong></div>
+          <div class="progress-stat"><span class="stat-label">Current level</span><strong id="current-level">2</strong></div>
+          <div class="progress-stat"><span class="stat-label">Rank</span><strong id="current-rank">Trainee</strong></div>
+          <div class="progress-stat"><span class="stat-label">Assigned XP</span><strong id="assigned-xp">420</strong></div>
+        </div>
+
+        <div class="xp-panel">
+          <div class="xp-panel-heading">
+            <h3>Experience toward the next level</h3>
+            <span id="xp-progress-text">145 / 150 XP</span>
+          </div>
+          <div id="xp-progress-bar" class="xp-progress-track" role="progressbar" aria-label="Progress toward Level 3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="95">
+            <div id="xp-progress-fill" class="xp-progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="skill-statistics" aria-label="Skill statistics">
+          <div><span>Total skills</span><strong id="total-skills">8</strong></div>
+          <div><span>Completed skills</span><strong id="completed-skills">3</strong></div>
+          <div><span>Completed</span><strong id="completion-percentage">37.5%</strong></div>
+        </div>
+
+        <div class="skill-board" aria-label="Skill Kanban board">
+          <div class="skill-column" data-status="planned">
+            <h3>Planned</h3>
+            <div id="skill-list-planned" class="skill-list">
+              <article class="skill-card" data-skill-id="network-security">
+                <h4>Network Security</h4><p class="skill-status">Planned</p><p class="skill-xp">Assigned XP: 60</p>
+              </article>
+              <article class="skill-card" data-skill-id="web-security-basics">
+                <h4>Web Security Basics</h4><p class="skill-status">Planned</p><p class="skill-xp">Assigned XP: 50</p>
+              </article>
+            </div>
+          </div>
+          <div class="skill-column" data-status="in-progress">
+            <h3>In Progress</h3>
+            <div id="skill-list-in-progress" class="skill-list">
+              <article class="skill-card" data-skill-id="javascript-basics">
+                <h4>JavaScript Basics</h4><p class="skill-status">In Progress</p><p class="skill-xp">Assigned XP: 55</p>
+              </article>
+              <article class="skill-card" data-skill-id="python-automation">
+                <h4>Python Automation</h4><p class="skill-status">In Progress</p><p class="skill-xp">Assigned XP: 65</p>
+              </article>
+              <article class="skill-card" data-skill-id="linux-fundamentals">
+                <h4>Linux Fundamentals</h4><p class="skill-status">In Progress</p><p class="skill-xp">Assigned XP: 45</p>
+              </article>
+            </div>
+          </div>
+          <div class="skill-column" data-status="completed">
+            <h3>Completed</h3>
+            <div id="skill-list-completed" class="skill-list">
+              <article class="skill-card" data-skill-id="html-semantic-structure">
+                <h4>HTML &amp; Semantic Structure</h4><p class="skill-status">Completed</p><p class="skill-xp">Assigned XP: 50</p>
+              </article>
+              <article class="skill-card" data-skill-id="css-layout">
+                <h4>CSS Layout</h4><p class="skill-status">Completed</p><p class="skill-xp">Assigned XP: 45</p>
+              </article>
+              <article class="skill-card" data-skill-id="git-github">
+                <h4>Git and GitHub</h4><p class="skill-status">Completed</p><p class="skill-xp">Assigned XP: 50</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Skill Progress Section -->
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
