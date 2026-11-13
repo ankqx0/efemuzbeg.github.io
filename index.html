@@ -573,35 +573,69 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            <form id="cv-feedback-form" class="cv-feedback-form" novalidate data-aos="fade-up" data-aos-delay="200">
+              <p>This university demonstration processes entries in your browser only. Do not enter sensitive information.</p>
               <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                <div class="col-md-6 form-field">
+                  <label for="first-name">First name</label>
+                  <input id="first-name" name="firstName" type="text" class="form-control" autocomplete="given-name" required aria-describedby="first-name-error">
+                  <div id="first-name-error" class="field-error" aria-live="polite"></div>
                 </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                <div class="col-md-6 form-field">
+                  <label for="last-name">Last name</label>
+                  <input id="last-name" name="lastName" type="text" class="form-control" autocomplete="family-name" required aria-describedby="last-name-error">
+                  <div id="last-name-error" class="field-error" aria-live="polite"></div>
                 </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                <div class="col-md-6 form-field">
+                  <label for="contact-email">Email address</label>
+                  <input id="contact-email" name="email" type="email" class="form-control" autocomplete="email" required aria-describedby="contact-email-error">
+                  <div id="contact-email-error" class="field-error" aria-live="polite"></div>
                 </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                <div class="col-md-6 form-field">
+                  <label for="contact-phone">Lithuanian mobile phone</label>
+                  <input id="contact-phone" name="phone" type="tel" class="form-control" inputmode="numeric" autocomplete="tel" placeholder="+370 6xx xxxxx" maxlength="14" required aria-describedby="contact-phone-error">
+                  <div id="contact-phone-error" class="field-error" aria-live="polite"></div>
                 </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit" disabled aria-label="Message form not yet configured">Message Form Coming Soon</button>
+                <div class="col-12 form-field">
+                  <label for="contact-address">Address</label>
+                  <input id="contact-address" name="address" type="text" class="form-control" autocomplete="street-address" required aria-describedby="contact-address-error">
+                  <div id="contact-address-error" class="field-error" aria-live="polite"></div>
                 </div>
-
+                <div class="col-md-4 form-field">
+                  <label for="rating-content">How clear is the CV content? (1–10)</label>
+                  <input id="rating-content" name="ratingContent" type="number" class="form-control" min="1" max="10" step="1" required aria-describedby="rating-content-error">
+                  <div id="rating-content-error" class="field-error" aria-live="polite"></div>
+                </div>
+                <div class="col-md-4 form-field">
+                  <label for="rating-design">How effective is the visual design? (1–10)</label>
+                  <input id="rating-design" name="ratingDesign" type="number" class="form-control" min="1" max="10" step="1" required aria-describedby="rating-design-error">
+                  <div id="rating-design-error" class="field-error" aria-live="polite"></div>
+                </div>
+                <div class="col-md-4 form-field">
+                  <label for="rating-usability">How easy is the site to use? (1–10)</label>
+                  <input id="rating-usability" name="ratingUsability" type="number" class="form-control" min="1" max="10" step="1" required aria-describedby="rating-usability-error">
+                  <div id="rating-usability-error" class="field-error" aria-live="polite"></div>
+                </div>
+                <div class="col-12 form-actions">
+                  <button id="submit-feedback" type="submit" disabled>Submit</button>
+                  <button id="clear-feedback" type="button">Clear</button>
+                </div>
               </div>
             </form>
+            <section id="form-results" class="form-results" aria-live="polite" hidden>
+              <h3>Submitted information</h3>
+              <dl class="result-grid">
+                <div><dt>First name</dt><dd id="result-first-name"></dd></div>
+                <div><dt>Last name</dt><dd id="result-last-name"></dd></div>
+                <div><dt>Email</dt><dd id="result-email"></dd></div>
+                <div><dt>Phone number</dt><dd id="result-phone"></dd></div>
+                <div><dt>Address</dt><dd id="result-address"></dd></div>
+                <div><dt>Content rating</dt><dd id="result-rating-content"></dd></div>
+                <div><dt>Design rating</dt><dd id="result-rating-design"></dd></div>
+                <div><dt>Usability rating</dt><dd id="result-rating-usability"></dd></div>
+              </dl>
+              <p id="rating-average" class="rating-average"></p>
+            </section>
           </div><!-- End Contact Form -->
 
         </div>
@@ -658,6 +692,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/custom.js"></script>
 
 </body>
 

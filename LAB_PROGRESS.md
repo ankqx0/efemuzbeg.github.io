@@ -47,7 +47,25 @@ Changed files: `index.html`, `assets/css/custom.css`, `LAB_PROGRESS.md`.
 
 ## LW11_FORM_COMPLETE
 
-Pending implementation and verification.
+Mandatory requirements:
+
+- [x] `assets/js/custom.js` is loaded after `main.js`; the vendor scripts remain untouched.
+- [x] The Contact form has first name, last name, email, phone, address, three 1–10 rating questions and Submit.
+- [x] Submission prevents page reload, reads all fields into an object, logs it, and displays every value below the form.
+- [x] The arithmetic rating average is displayed as `First name Last name: average`.
+- [x] Submit starts disabled and becomes enabled only when every required field is valid.
+- [x] The form has no server action, and submission data are not stored in localStorage.
+
+Complementary requirements:
+
+- [x] Required, email, Unicode-letter name, rating range and Lithuanian mobile number validation run during input and blur.
+- [x] Visible field errors and `aria-invalid` states identify invalid values; invalid forms keep Submit disabled.
+- [x] Phone input formats digits as `+370 6xx xxxxx`, limits the count, and handles paste and backspace at separators.
+- [x] Clear resets fields, displayed values, average, errors and Submit without reloading.
+
+Verification: `node --check` passed. Four Node tests passed for phone formatting, validation, arithmetic average and a simulated form submit/Clear cycle. HTML IDs are unique, navigation targets and local assets resolve, and `git diff --check` passed. Real browser interaction remains for manual review.
+
+Changed files: `index.html`, `assets/css/custom.css`, `assets/js/custom.js`, `tests/custom.test.cjs`, `LAB_PROGRESS.md`.
 
 ## LW12_INTERACTIVE_COMPLETE
 

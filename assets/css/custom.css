@@ -355,3 +355,48 @@ button:disabled { opacity: 0.58; cursor: not-allowed; }
   .about .container[data-aos-delay="100"]::after { animation: none; }
   .xp-progress-fill { transition: none; }
 }
+
+/* LW11: client-side contact form feedback and submitted-data display. */
+.contact .cv-feedback-form, .contact .form-results {
+  background: #fff;
+  border: 1px solid #d5e7ef;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(20, 65, 91, 0.08);
+  padding: 24px;
+}
+.contact .cv-feedback-form > p { margin-bottom: 20px; }
+.contact .form-field label { display: block; margin-bottom: 7px; font-weight: 700; color: #173f5c; }
+.contact .form-field .form-control {
+  min-height: 44px;
+  border: 1px solid #9dbccc;
+  border-radius: 9px;
+  padding: 9px 12px;
+  color: #243746;
+}
+.contact .form-field .form-control:focus {
+  border-color: #0876a7;
+  box-shadow: 0 0 0 3px rgba(8, 118, 167, 0.16);
+}
+.contact .form-field .form-control.is-invalid {
+  border-color: #b42332;
+  box-shadow: 0 0 0 2px rgba(180, 35, 50, 0.12);
+  background-image: none;
+}
+.contact .field-error { color: #a11c2b; font-size: 0.88rem; font-weight: 650; margin-top: 5px; }
+.contact .field-error:empty { display: none; }
+.contact .form-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.contact #clear-feedback { background: #fff; border-color: #8baebe; color: #17425f; }
+.contact #clear-feedback:hover { background: #e8f3f9; color: #123c57; }
+.contact #clear-feedback:active { background: #d5e9f3; }
+.contact .form-results { margin-top: 24px; }
+.contact .form-results[hidden] { display: none; }
+.contact .form-results h3 { font-size: 1.3rem; margin-bottom: 16px; }
+.contact .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.contact .result-grid > div { background: #f5fafc; border-radius: 9px; padding: 10px 12px; min-width: 0; }
+.contact .result-grid dt { font-size: 0.85rem; color: #456377; }
+.contact .result-grid dd { margin: 4px 0 0; font-weight: 650; overflow-wrap: anywhere; }
+.contact .rating-average { margin: 16px 0 0; color: #075e88; font-weight: 800; }
+@media (max-width: 575px) {
+  .contact .cv-feedback-form, .contact .form-results { padding: 18px; }
+  .contact .result-grid { grid-template-columns: 1fr; }
+}
