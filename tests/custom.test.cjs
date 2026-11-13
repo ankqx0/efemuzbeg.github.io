@@ -5,7 +5,10 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const scriptPath = path.join(__dirname, '..', 'assets', 'js', 'custom.js');
-const { formatLithuanianPhone, validationMessage, calculateAverage } = require(scriptPath);
+const {
+  formatLithuanianPhone, validationMessage, calculateAverage, initialSkills,
+  levelDetails, calculateSkillProgress, changeSkillStatus, parseSavedStatuses
+} = require(scriptPath);
 
 test('Lithuanian mobile input is formatted without changing its digits', () => {
   assert.equal(formatLithuanianPhone('37061234567'), '+370 612 34567');
@@ -112,4 +115,118 @@ test('form submit stays disabled until valid, displays data, then Clear resets e
   assert.equal(ui.elements.get('rating-average').textContent, '');
   assert.equal(ui.elements.get('contact-email-error').textContent, '');
   assert.ok(Object.values(ui.fields).every((field) => field.value === ''));
+});
+
+test('the same eight LW10 skills retain their assigned XP and initial categories', () => {
+  assert.equal(initialSkills.length, 8);
+  assert.equal(new Set(initialSkills.map((skill) => skill.id)).size, 8);
+  assert.ok(initialSkills.every((skill) => skill.xp >= 20 && skill.xp <= 80));
+  const progress = calculateSkillProgress(initialSkills);
+  assert.equal(progress.assignedXp, 420);
+  assert.equal(progress.earnedXp, 145);
+  assert.equal(progress.completedSkills, 3);
+  assert.equal(progress.completionPercent, 37.5);
+  assert.equal(progress.level, 2);
+  assert.equal(progress.rank, 'Trainee');
+  assert.equal(progress.progressPercent, 95);
+});
+
+test('level boundaries and next-level progress work in both directions', () => {
+  const expected = [
+    [0, 1, 'Beginner', 0], [49, 1, 'Beginner', 98],
+    [50, 2, 'Trainee', 0], [100, 2, 'Trainee', 50],
+    [149, 2, 'Trainee', 99], [150, 3, 'Specialist', 0],
+    [299, 3, 'Specialist', 149 / 150 * 100], [300, 4, 'Professional', 100]
+  ];
+  expected.forEach(([xp, level, rank, percent]) => {
+    assert.equal(levelDetails(xp).level, level);
+    const progress = calculateSkillProgress([{ id: 'example', status: 'Completed', xp }]);
+    assert.equal(progress.rank, rank);
+    assert.equal(progress.progressPercent, percent);
+  });
+  const skills = initialSkills.map((skill) => ({ ...skill }));
+  assert.equal(changeSkillStatus(skills, 'network-security', 'Completed'), true);
+  assert.equal(calculateSkillProgress(skills).earnedXp, 205);
+  assert.equal(changeSkillStatus(skills, 'network-security', 'Planned'), true);
+  assert.equal(calculateSkillProgress(skills).earnedXp, 145);
+  assert.equal(changeSkillStatus(skills, 'html-semantic-structure', 'In Progress'), true);
+  assert.equal(calculateSkillProgress(skills).earnedXp, 95);
+  assert.equal(changeSkillStatus(skills, 'network-security', 'Invalid'), false);
+  assert.equal(changeSkillStatus(skills, 'missing', 'Completed'), false);
+  skills.forEach((skill) => { skill.status = 'Completed'; });
+  assert.equal(calculateSkillProgress(skills).earnedXp, 420);
+  assert.equal(calculateSkillProgress(skills).progressPercent, 100);
+});
+
+test('saved skill statuses restore safely and malformed or outdated data fall back', () => {
+  assert.equal(parseSavedStatuses(null), null);
+  assert.equal(parseSavedStatuses('{broken'), null);
+  assert.equal(parseSavedStatuses(JSON.stringify({ version: 2, statuses: {} })), null);
+  const saved = parseSavedStatuses(JSON.stringify({ version: 1, statuses: {
+    'network-security': 'Completed', 'css-layout': 'unknown', extra: 'Planned'
+  } }));
+  assert.equal(saved['network-security'], 'Completed');
+  assert.equal(saved['css-layout'], 'Completed');
+  assert.equal(Object.hasOwn(saved, 'extra'), false);
+});
+
+function dashboardHarness(storage = new Map()) {
+  const elements = new Map();
+  function element(tag = 'div') {
+    const listeners = new Map();
+    return {
+      tag, id: '', className: '', dataset: {}, style: {}, attributes: {}, children: [],
+      textContent: '', value: '',
+      append(...children) { this.children.push(...children); },
+      replaceChildren(...children) { this.children = [...children]; },
+      setAttribute(name, value) { this.attributes[name] = value; },
+      addEventListener(name, handler) { listeners.set(name, handler); },
+      fire(name) { listeners.get(name)(); }
+    };
+  }
+  const ids = [
+    'skill-progress', 'skill-list-planned', 'skill-list-in-progress', 'skill-list-completed',
+    'earned-xp', 'assigned-xp', 'current-level', 'current-rank', 'total-skills',
+    'completed-skills', 'completion-percentage', 'xp-progress-bar', 'xp-progress-fill', 'xp-progress-text'
+  ];
+  ids.forEach((id) => elements.set(id, element()));
+  const document = {
+    getElementById(id) { return elements.get(id) || null; },
+    createElement(tag) { return element(tag); }
+  };
+  const window = { localStorage: {
+    getItem(key) { return storage.get(key) ?? null; },
+    setItem(key, value) { storage.set(key, value); }
+  } };
+  vm.runInNewContext(fs.readFileSync(scriptPath, 'utf8'), { document, window, module: { exports: {} } });
+  return { elements, storage };
+}
+
+test('dynamic cards move, recompute metrics and persist statuses across reload', () => {
+  const storage = new Map();
+  const ui = dashboardHarness(storage);
+  assert.equal(ui.elements.get('skill-list-planned').children.length, 2);
+  assert.equal(ui.elements.get('skill-list-in-progress').children.length, 3);
+  assert.equal(ui.elements.get('skill-list-completed').children.length, 3);
+  assert.equal(ui.elements.get('earned-xp').textContent, '145');
+  assert.equal(ui.elements.get('xp-progress-fill').style.width, '95%');
+  const card = ui.elements.get('skill-list-planned').children.find((item) => item.dataset.skillId === 'network-security');
+  const select = card.children.at(-1);
+  select.value = 'Completed'; select.fire('change');
+  assert.equal(ui.elements.get('skill-list-completed').children.length, 4);
+  assert.equal(ui.elements.get('earned-xp').textContent, '205');
+  assert.equal(ui.elements.get('current-level').textContent, '3');
+  assert.equal(ui.elements.get('completion-percentage').textContent, '50%');
+  const saved = JSON.parse(storage.get('efe-cv-skill-status-v1'));
+  assert.deepEqual(Object.keys(saved).sort(), ['statuses', 'version']);
+  assert.equal(saved.statuses['network-security'], 'Completed');
+  assert.equal(Object.hasOwn(saved, 'email'), false);
+  const reloaded = dashboardHarness(storage);
+  assert.equal(reloaded.elements.get('earned-xp').textContent, '205');
+  const moved = reloaded.elements.get('skill-list-completed').children.find((item) => item.dataset.skillId === 'network-security');
+  moved.children.at(-1).value = 'Planned'; moved.children.at(-1).fire('change');
+  assert.equal(reloaded.elements.get('earned-xp').textContent, '145');
+  assert.equal(reloaded.elements.get('skill-list-planned').children.length, 2);
+  storage.clear();
+  assert.equal(dashboardHarness(storage).elements.get('earned-xp').textContent, '145');
 });

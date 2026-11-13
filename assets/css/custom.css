@@ -340,6 +340,9 @@ button:disabled { opacity: 0.58; cursor: not-allowed; }
 .skill-card p:last-child { margin-bottom: 0; }
 .skill-status { color: #31566d; font-weight: 700; }
 .skill-xp { color: #155c80; }
+.skill-status-label { display: block; margin: 10px 0 5px; color: #31566d; font-size: 0.88rem; font-weight: 700; }
+.skill-status-select { width: 100%; border: 1px solid #9dbccc; border-radius: 9px; color: #173f5c; }
+.skill-status-select:focus { border-color: #0876a7; box-shadow: 0 0 0 3px rgba(8, 118, 167, 0.16); }
 
 @media (max-width: 991px) {
   .progress-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
